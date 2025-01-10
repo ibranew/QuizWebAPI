@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using QuizWebAPI.Application.Features.Commands.QuizCommands.CreateQuiz;
+using QuizWebAPI.Application.Features.Commands.QuizCommands.DeleteQuiz;
+using QuizWebAPI.Application.Features.Commands.QuizCommands.EditQuiz;
 using QuizWebAPI.Application.Features.Queries.QuizQueries.GetQuizzes;
 
 namespace QuizWebAPI.API.Controllers
@@ -25,13 +27,21 @@ namespace QuizWebAPI.API.Controllers
         [HttpGet("get-quizzes")]
         public async Task<IActionResult> GetQuizzes([FromQuery] GetQuizzesQueryRequest request)
         {
+            //https://localhost:7039/api/Quizzes/get-quizzes
             var response = await mediator.Send(request);
             return Ok(response);
         }
-        [HttpDelete]
-        public async Task<IActionResult> Delete()
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete([FromRoute]DeleteQuizCommandRequest request)
         {
-            return Ok();
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
+        [HttpPut()]
+        public async Task<IActionResult> Edit([FromBody] EditQuizCommandRequest request)
+        {
+            var response = await mediator.Send(request);
+            return Ok(response);
         }
     }
 }

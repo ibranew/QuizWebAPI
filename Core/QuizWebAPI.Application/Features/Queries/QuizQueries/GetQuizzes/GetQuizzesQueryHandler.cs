@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using QuizWebAPI.Application.Abstractions.Services;
+using QuizWebAPI.Application.Abstractions.Services.EntityServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;

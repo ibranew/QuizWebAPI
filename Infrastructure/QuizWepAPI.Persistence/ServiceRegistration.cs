@@ -9,6 +9,7 @@ using QuizWebAPI.Application.Abstractions.Repositories;
 using QuizWepAPI.Persistence.Concretes.Repositories;
 using QuizWebAPI.Application.Abstractions.Services;
 using QuizWepAPI.Persistence.Concretes.Services;
+using QuizWebAPI.Application.Abstractions.Services.EntityServices;
 
 
 namespace QuizWepAPI.Persistence
@@ -24,7 +25,7 @@ namespace QuizWepAPI.Persistence
             services.AddDbContext<QuizWebAPIDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            // Identity ayarları
+            // Identity ayar
             services.AddIdentity<AppUser, AppRole>(options =>
             {
                 options.Password.RequireDigit = false;
@@ -40,10 +41,13 @@ namespace QuizWepAPI.Persistence
             services.AddScoped<IQuizRepository, QuizRepository>();
             services.AddScoped<IAnswerRepository, AnswerRepository>();
             services.AddScoped<IQuestionRepository, QuestionRepository>();
+          
 
             //services
             services.AddScoped<IQuizService,QuizService>();
             services.AddScoped<IAuthService,AuthService>();
+            services.AddScoped<IAnswersService,AnswersService>();
+            services.AddScoped<IQuestionService,QuestionService>();
         }
         }
 }

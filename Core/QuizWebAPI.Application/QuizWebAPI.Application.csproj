@@ -15,8 +15,4 @@
     <ProjectReference Include="..\QuizWepAPI.Domain\QuizWepAPI.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Features\Commands\QuizCommands\NewFolder\" />
-  </ItemGroup>
-
 </Project>

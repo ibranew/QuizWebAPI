@@ -21,7 +21,7 @@ namespace QuizWebAPI.Application.Features.Commands.UserCommands.Login
 
         public async Task<LoginCommandResponse> Handle(LoginCommandRequest request, CancellationToken cancellationToken)
         {
-            int minute = 3;
+            int minute = 180;
             DTOs.Token? token = await authService.LoginAsync(request.UserName,request.Password,minute);
 
             if (token is not null)

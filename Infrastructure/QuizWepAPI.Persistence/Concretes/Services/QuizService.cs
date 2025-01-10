@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using QuizWebAPI.Application.Abstractions.Repositories;
-using QuizWebAPI.Application.Abstractions.Services;
+using QuizWebAPI.Application.Abstractions.Services.EntityServices;
 using QuizWebAPI.Application.DTOs.QuizDTOs;
 using QuizWepAPI.Domain.Entities;
+using QuizWepAPI.Persistence.Concretes.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,8 +19,8 @@ namespace QuizWepAPI.Persistence.Concretes.Services
         public QuizService(IQuizRepository repository)
         {
             _repository = repository;
+            
         }
-
         public async Task<bool> AddQuizAsync(string title, string description)
         {
             Quiz quiz = new Quiz()
@@ -86,6 +87,25 @@ namespace QuizWepAPI.Persistence.Concretes.Services
             Quiz quiz = await _repository.GetByIdAsync(Guid.Parse(id));
             _repository.Delete(quiz);
             return 0 < await _repository.SaveChangesAsync();//1 true 0 false
+        }
+
+        public async Task<bool> EditQuizAsync(QuizDTO _quiz)
+        {
+            Quiz quiz = await _repository.GetByIdAsync(Guid.Parse(_quiz.Id));
+            quiz.Description = _quiz.Description;
+            quiz.Title = _quiz.Title;
+            _repository.Update(quiz);
+            return await _repository.SaveChangesAsync()>0;
+        }
+
+        public async Task<Quiz> GetQuizById(Guid id)
+        {
+            return await _repository.GetByIdAsync(id);
+        }
+        public async Task<bool> SaveDatabaseChangesAsync()
+        {
+            int r = await _repository.SaveChangesAsync();
+            return r > 0;
         }
     }
 }

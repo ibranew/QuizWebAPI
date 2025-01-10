@@ -22,6 +22,13 @@ namespace QuizWebAPI.API.Controllers
             var response =  await mediator.Send(request);
             return Ok(response);
         }
+        [HttpPost("face-login")]
+        public async Task<IActionResult> LoginFacebook([FromBody] LoginCommandRequest request)
+        {
+            //https://localhost:7039/api/auth/face-login
+            var response = await mediator.Send(request);
+            return Ok(response);
+        }
 
     }
 }
